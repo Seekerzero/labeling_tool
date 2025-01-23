@@ -10,18 +10,19 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QMessageBox,
     QListWidgetItem,
-    QLabel,
+    QTableWidget,
 )
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 
 # Import the class from the generated ui_labeling_tool.py
-from ui_labeling_tool import Ui_Widget
+from ui_labeling_tool import Ui_MainWindow
 from init_db import init_db
+from modules.face_segementation import FaceSegmentation
 
 
-class LabelingTool(QMainWindow, Ui_Widget):
-    def __init__(self):
+class LabelingTool(QMainWindow, Ui_MainWindow):
+    def __init__(self, segmenter):
         super().__init__()
         self.setupUi(self)  # This initializes all widgets from the UI
 
@@ -32,18 +33,27 @@ class LabelingTool(QMainWindow, Ui_Widget):
 
         # A list to keep track of images in the selected directory
         self.image_paths = []
+        self.seg_image_folder = ""
+        self.seg_mask_folder = ""
+        self.seg_image_paths = []
         self.current_index = 0
         self.focus_mode_enabled = False
         # Connect buttons (matching the object names from Qt Designer)
-        self.openDirButton.clicked.connect(self.open_directory)
-        self.createDBButton.clicked.connect(
+        self.actionOpen_Workspace.triggered.connect(self.open_directory)
+        self.actionCreate_New_Database.triggered.connect(
             lambda: self.init_database(self.workspace_path)
         )
+        self.actionParse_Current_Image.triggered.connect(
+            self.face_segmentation_current_image
+        )
+
         self.addLabelButton.clicked.connect(self.add_label)
         self.removeLabelButton.clicked.connect(self.remove_label)
         self.prevImageButton.clicked.connect(self.prev_image)
         self.nextImageButton.clicked.connect(self.next_image)
         self.focusModeButton.clicked.connect(self.set_focus_mode)
+
+        self.seg_tool = segmenter
 
         # (Optional) Connect other signals/slots or do other setup...
 
@@ -56,6 +66,21 @@ class LabelingTool(QMainWindow, Ui_Widget):
                 + glob.glob(os.path.join(directory, "*.png"))
             )
             self.workspace_path = directory
+
+            self.seg_image_folder, self.seg_mask_folder = self.find_segmentation_folder(
+                self.workspace_path
+            )
+
+            if not os.path.exists(self.seg_image_folder):
+                self.seg_image_folder, self.seg_mask_folder = (
+                    self.create_segmentation_folder(self.workspace_path)
+                )
+
+            self.seg_image_paths = natsort.natsorted(
+                glob.glob(os.path.join(self.seg_image_folder, "*.jpg"))
+                + glob.glob(os.path.join(self.seg_image_folder, "*.png"))
+            )
+
             self.db_path = self.find_database(self.workspace_path)
             if not os.path.exists(self.db_path):
                 QMessageBox.warning(
@@ -69,6 +94,25 @@ class LabelingTool(QMainWindow, Ui_Widget):
                 self.load_labels()
                 self.current_index = 0
                 self.update_image_display()
+
+    def create_segmentation_folder(self, workspace_path):
+        """Create a folder for the segmented images."""
+        if self.workspace_path:
+            seg_folder = os.path.join(workspace_path, "segmented_images")
+            os.makedirs(seg_folder, exist_ok=True)
+            mask_folder = os.path.join(seg_folder, "masks")
+            os.makedirs(mask_folder, exist_ok=True)
+            return seg_folder, mask_folder
+        return None
+
+    def find_segmentation_folder(self, workspace_path):
+        """Find the folder for the segmented images."""
+        if self.workspace_path:
+            seg_folder = os.path.join(workspace_path, "segmented_images")
+            mask_folder = os.path.join(seg_folder, "masks")
+            if os.path.exists(seg_folder) and os.path.exists(mask_folder):
+                return seg_folder, mask_folder
+        return self.create_segmentation_folder(workspace_path)
 
     def find_database(self, workspace_path):
         return os.path.join(workspace_path, "labels.db")
@@ -200,25 +244,26 @@ class LabelingTool(QMainWindow, Ui_Widget):
 
     def update_image_display(self):
         if not self.image_paths:
-            self.imageLabel.clear()
+            self.imageLabelTabRaw.clear()
+            self.imageLabelTabSeg.clear()
             return
         pixmap = QPixmap(self.image_paths[self.current_index])
 
         # check if the image is larger than the label
         overSize = (
-            pixmap.width() > self.imageLabel.width()
-            or pixmap.height() > self.imageLabel.height()
+            pixmap.width() > self.imageLabelTabRaw.width()
+            or pixmap.height() > self.imageLabelTabRaw.height()
         )
         height_width_ratio = pixmap.height() / pixmap.width()
         new_height = pixmap.height()
         new_width = pixmap.width()
         if overSize:
             if height_width_ratio > 1:
-                ratio = self.imageLabel.height() / pixmap.height()
+                ratio = self.imageLabelTabRaw.height() / pixmap.height()
                 new_height = pixmap.height() * ratio
                 new_width = pixmap.width() * ratio
-                if new_width > self.imageLabel.width():
-                    ratio = self.imageLabel.width() / new_width
+                if new_width > self.imageLabelTabRaw.width():
+                    ratio = self.imageLabelTabRaw.width() / new_width
                     new_height = new_height * ratio
                     new_width = new_width * ratio
 
@@ -227,11 +272,11 @@ class LabelingTool(QMainWindow, Ui_Widget):
                 )
 
             else:
-                ratio = self.imageLabel.width() / pixmap.width()
+                ratio = self.imageLabelTabRaw.width() / pixmap.width()
                 new_height = pixmap.height() * ratio
                 new_width = pixmap.width() * ratio
-                if new_height > self.imageLabel.height():
-                    ratio = self.imageLabel.height() / new_height
+                if new_height > self.imageLabelTabRaw.height():
+                    ratio = self.imageLabelTabRaw.height() / new_height
                     new_height = new_height * ratio
                     new_width = new_width * ratio
                 pixmap = pixmap.scaled(
@@ -239,8 +284,8 @@ class LabelingTool(QMainWindow, Ui_Widget):
                 )
         else:
             pixmap = pixmap.scaled(
-                self.imageLabel.width(),
-                self.imageLabel.height(),
+                self.imageLabelTabRaw.width(),
+                self.imageLabelTabRaw.height(),
                 Qt.AspectRatioMode.KeepAspectRatio,
             )
 
@@ -248,15 +293,29 @@ class LabelingTool(QMainWindow, Ui_Widget):
         # self.imageLabel.setPicture(image)
 
         scaled = pixmap.scaled(
-            self.imageLabel.size(), Qt.AspectRatioMode.KeepAspectRatio
+            self.imageLabelTabRaw.size(), Qt.AspectRatioMode.KeepAspectRatio
         )
-        self.imageLabel.setPixmap(scaled)
+        self.imageLabelTabRaw.setPixmap(scaled)
         self.imageIDCount.setText(
             f"{self.current_index+1}/{len(self.image_paths)}  {os.path.basename(self.image_paths[self.current_index])}"
         )
         self.update_cur_image_labels_display()
-        # If you have a status label, you could update it here:
-        # self.statusLabel.setText(f"{self.current_index+1}/{len(self.image_paths)}: {os.path.basename(image_path)}")
+
+        if self.seg_image_paths:
+            # match the segmented image with the raw image based on the name
+            raw_image_name = os.path.basename(self.image_paths[self.current_index])
+            seg_image_name = raw_image_name.split(".")[0] + "_segmented.png"
+            seg_image_path = os.path.join(self.seg_image_folder, seg_image_name)
+            if os.path.exists(seg_image_path):
+                seg_pixmap = QPixmap(seg_image_path)
+                seg_pixmap = seg_pixmap.scaled(
+                    self.imageLabelTabSeg.width(),
+                    self.imageLabelTabSeg.height(),
+                    Qt.AspectRatioMode.KeepAspectRatio,
+                )
+                self.imageLabelTabSeg.setPixmap(seg_pixmap)
+            else:
+                self.imageLabelTabSeg.clear()
 
     def keyPressEvent(self, event):
         # Example: if user typed "A", label the current image with label that has key_binding='A'
@@ -402,18 +461,59 @@ class LabelingTool(QMainWindow, Ui_Widget):
             self.width() - self.rightUpperGroupBox.width(),
             self.upperGroupBox.height(),
         )
-        self.imageLabel.setGeometry(
+        self.imageTab.setGeometry(
             0,
             self.upperGroupBox.height(),
             self.upperGroupBox.width(),
             self.height() - self.upperGroupBox.height(),
         )
+
+        self.imageLabelTabRaw.setGeometry(
+            0, 0, self.imageTab.width(), self.imageTab.height()
+        )
+        self.imageLabelTabSeg.setGeometry(
+            0, 0, self.imageTab.width(), self.imageTab.height()
+        )
         self.update_image_display()  # re-scale image to the label size
+
+    def face_segmentation_current_image(self):
+        if not self.image_paths:
+            QMessageBox.warning(
+                self, "Warning", "Please select a directory containing images first."
+            )
+            return
+        if not self.seg_image_folder:
+            QMessageBox.warning(
+                self, "Warning", "Please select a directory for segmented images first."
+            )
+            return
+        if not self.seg_mask_folder:
+            QMessageBox.warning(
+                self, "Warning", "Please select a directory for mask images first."
+            )
+            return
+        image_path = self.image_paths[self.current_index]
+        seg_image_name = os.path.basename(image_path).split(".")[0] + "_segmented.png"
+        seg_image_path = os.path.join(self.seg_image_folder, seg_image_name)
+        seg_mask_name = os.path.basename(image_path).split(".")[0] + "_mask.npy"
+        seg_mask_path = os.path.join(self.seg_mask_folder, seg_mask_name)
+
+        # print(f"Segmenting face in {image_path}")
+        # print(f"Saving segmented image to {seg_image_path}")
+        # print(f"Saving mask to {seg_mask_path}")
+        self.seg_tool.segment_face(image_path, seg_image_path, seg_mask_path)
+        # update self.seg_image_paths
+        self.seg_image_paths = natsort.natsorted(
+            glob.glob(os.path.join(self.seg_image_folder, "*.jpg"))
+            + glob.glob(os.path.join(self.seg_image_folder, "*.png"))
+        )
+        self.update_image_display()
 
 
 def main():
     app = QApplication(sys.argv)
-    window = LabelingTool()
+    segmentor = FaceSegmentation()
+    window = LabelingTool(segmentor)
     window.show()
     sys.exit(app.exec())
 
