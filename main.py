@@ -76,7 +76,7 @@ class LabelingTool(QMainWindow, Ui_Widget):
     def init_database(self, workspace_path):
 
         # if found database exists, warn the user that it will be overwritten
-        if self.db_path:
+        if os.path.exists(self.find_database(workspace_path)):
             reply = QMessageBox.question(
                 self,
                 "Warning",
