@@ -34,10 +34,11 @@ class BlobDetector:
         self.params = cv2.SimpleBlobDetector_Params()
         self.params.filterByArea = True
         self.params.minArea = 100
-        self.params.maxArea = 1000
+        self.params.maxArea = 10000000
+        self.params.minDistBetweenBlobs = 10
 
         self.params.filterByCircularity = True
-        self.params.minCircularity = 0.4
+        self.params.minCircularity = 0.2
 
         self.params.filterByColor = True
         self.params.blobColor = 0
