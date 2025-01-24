@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -67,6 +67,36 @@
       <string>Seg</string>
      </attribute>
      <widget class="QLabel" name="imageLabelTabSeg">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>706</width>
+        <height>509</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="imageBlobTab">
+     <attribute name="title">
+      <string>blob</string>
+     </attribute>
+     <widget class="QLabel" name="imageLabelTabBlob">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -397,6 +427,7 @@
      <string>Database</string>
     </property>
     <addaction name="actionCreate_New_Database"/>
+    <addaction name="actionUpdate_Database"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
@@ -440,6 +471,11 @@
   <action name="actionParse_Current_Image">
    <property name="text">
     <string>Parse Current Image</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Database">
+   <property name="text">
+    <string>Update Database</string>
    </property>
   </action>
  </widget>

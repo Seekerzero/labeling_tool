@@ -82,6 +82,10 @@ CMakeLists.txt.user*
 /build*/
 .qtcreator/*
 .vscode/*
+*npy
+*json
+*db
 *.bin
 *.png
 *.jpg
+test_data/blob_images/keypoints/face_001_ISIC_0029290_keypoints.json
