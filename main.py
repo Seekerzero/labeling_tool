@@ -43,6 +43,7 @@ class LabelingTool(QMainWindow, Ui_MainWindow):
 
         self.current_index = 0
         self.focus_mode_enabled = False
+
         # Connect buttons (matching the object names from Qt Designer)
         self.actionOpen_Workspace.triggered.connect(self.open_directory)
         self.actionCreate_New_Database.triggered.connect(
@@ -548,7 +549,11 @@ class LabelingTool(QMainWindow, Ui_MainWindow):
             0,
             self.upperGroupBox.height(),
             self.upperGroupBox.width(),
-            self.height() - self.upperGroupBox.height(),
+            self.height()
+            - self.upperGroupBox.height()
+            - self.bottomGroupBox.height()
+            - self.statusBar().height()
+            - 13,
         )
 
         self.imageLabelTabRaw.setGeometry(
@@ -560,6 +565,14 @@ class LabelingTool(QMainWindow, Ui_MainWindow):
         self.imageLabelTabBlob.setGeometry(
             0, 0, self.imageTab.width(), self.imageTab.height()
         )
+
+        self.bottomGroupBox.setGeometry(
+            0,
+            self.upperGroupBox.height() + self.imageTab.height(),
+            self.width(),
+            self.bottomGroupBox.height(),
+        )
+
         self.update_image_display()  # re-scale image to the label size
 
     def face_segmentation_current_image(self):

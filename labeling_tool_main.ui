@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>983</width>
-    <height>637</height>
+    <width>1026</width>
+    <height>699</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Labeling Tool</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="imageTab">
@@ -24,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -126,10 +129,10 @@
    <widget class="QGroupBox" name="rightUpperGroupBox">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>760</x>
       <y>0</y>
-      <width>251</width>
-      <height>321</height>
+      <width>261</width>
+      <height>331</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -315,10 +318,10 @@
    <widget class="QGroupBox" name="rightBelowGroupBox">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>760</x>
       <y>330</y>
-      <width>251</width>
-      <height>261</height>
+      <width>261</width>
+      <height>255</height>
      </rect>
     </property>
     <property name="title">
@@ -406,13 +409,61 @@
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="bottomGroupBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>590</y>
+      <width>1021</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QProgressBar" name="bottomProgressBar">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>13</y>
+       <width>95</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="progressBarText">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>13</y>
+       <width>311</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>progressbartext</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>983</width>
+     <width>1026</width>
      <height>22</height>
     </rect>
    </property>
@@ -452,7 +503,11 @@
    <addaction name="menuDatabase"/>
    <addaction name="menuTools"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
   <action name="actionOpen_Workspace">
    <property name="text">
     <string>Open Workspace</string>

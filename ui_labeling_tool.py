@@ -18,14 +18,15 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QGroupBox, QLabel, QLineEdit,
     QListWidget, QListWidgetItem, QMainWindow, QMenu,
-    QMenuBar, QPushButton, QSizePolicy, QStatusBar,
-    QTabWidget, QWidget)
+    QMenuBar, QProgressBar, QPushButton, QSizePolicy,
+    QStatusBar, QTabWidget, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(983, 637)
+        MainWindow.resize(1026, 699)
+        MainWindow.setContextMenuPolicy(Qt.DefaultContextMenu)
         self.actionOpen_Workspace = QAction(MainWindow)
         self.actionOpen_Workspace.setObjectName(u"actionOpen_Workspace")
         self.actionCreate_New_Database = QAction(MainWindow)
@@ -78,7 +79,7 @@ class Ui_MainWindow(object):
         self.imageTab.addTab(self.imageBlobTab, "")
         self.rightUpperGroupBox = QGroupBox(self.centralwidget)
         self.rightUpperGroupBox.setObjectName(u"rightUpperGroupBox")
-        self.rightUpperGroupBox.setGeometry(QRect(730, 0, 251, 321))
+        self.rightUpperGroupBox.setGeometry(QRect(760, 0, 261, 331))
         self.rightUpperGroupBox.setMinimumSize(QSize(0, 321))
         self.rightUpperGroupBox.setContextMenuPolicy(Qt.NoContextMenu)
         self.rightUpperGroupBox.setLayoutDirection(Qt.LeftToRight)
@@ -127,7 +128,7 @@ class Ui_MainWindow(object):
         self.imageIDCount.setScaledContents(True)
         self.rightBelowGroupBox = QGroupBox(self.centralwidget)
         self.rightBelowGroupBox.setObjectName(u"rightBelowGroupBox")
-        self.rightBelowGroupBox.setGeometry(QRect(730, 330, 251, 261))
+        self.rightBelowGroupBox.setGeometry(QRect(760, 330, 261, 255))
         self.curImageLabelTitle = QLabel(self.rightBelowGroupBox)
         self.curImageLabelTitle.setObjectName(u"curImageLabelTitle")
         self.curImageLabelTitle.setGeometry(QRect(20, 10, 171, 16))
@@ -148,10 +149,23 @@ class Ui_MainWindow(object):
         self.focusStatus.setObjectName(u"focusStatus")
         self.focusStatus.setGeometry(QRect(150, 170, 81, 31))
         self.focusStatus.setScaledContents(True)
+        self.bottomGroupBox = QGroupBox(self.centralwidget)
+        self.bottomGroupBox.setObjectName(u"bottomGroupBox")
+        self.bottomGroupBox.setGeometry(QRect(0, 590, 1021, 51))
+        self.bottomGroupBox.setAutoFillBackground(True)
+        self.bottomProgressBar = QProgressBar(self.bottomGroupBox)
+        self.bottomProgressBar.setObjectName(u"bottomProgressBar")
+        self.bottomProgressBar.setGeometry(QRect(13, 13, 95, 25))
+        self.bottomProgressBar.setValue(24)
+        self.progressBarText = QLabel(self.bottomGroupBox)
+        self.progressBarText.setObjectName(u"progressBarText")
+        self.progressBarText.setGeometry(QRect(140, 13, 311, 25))
+        self.progressBarText.setScaledContents(True)
+        self.progressBarText.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 983, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1026, 22))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuDatabase = QMenu(self.menubar)
@@ -165,6 +179,7 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
+        self.statusbar.setSizeGripEnabled(False)
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuFile.menuAction())
@@ -187,7 +202,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Labeling Tool", None))
         self.actionOpen_Workspace.setText(QCoreApplication.translate("MainWindow", u"Open Workspace", None))
         self.actionCreate_New_Database.setText(QCoreApplication.translate("MainWindow", u"Create New Database", None))
         self.actionBlob_Detector_With_Face_Parsing.setText(QCoreApplication.translate("MainWindow", u"Blob Detector With Face Parsing", None))
@@ -214,6 +229,8 @@ class Ui_MainWindow(object):
         self.nextImageButton.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.focusModeButton.setText(QCoreApplication.translate("MainWindow", u"Focus Mode", None))
         self.focusStatus.setText(QCoreApplication.translate("MainWindow", u"OFF", None))
+        self.bottomGroupBox.setTitle("")
+        self.progressBarText.setText(QCoreApplication.translate("MainWindow", u"progressbartext", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuDatabase.setTitle(QCoreApplication.translate("MainWindow", u"Database", None))
         self.menuTools.setTitle(QCoreApplication.translate("MainWindow", u"Tools", None))
