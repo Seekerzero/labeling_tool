@@ -37,6 +37,8 @@ class Ui_MainWindow(object):
         self.actionParse_Current_Image.setObjectName(u"actionParse_Current_Image")
         self.actionUpdate_Database = QAction(MainWindow)
         self.actionUpdate_Database.setObjectName(u"actionUpdate_Database")
+        self.actionSettings = QAction(MainWindow)
+        self.actionSettings.setObjectName(u"actionSettings")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.rightGroupBox = QGroupBox(self.centralwidget)
@@ -170,11 +172,11 @@ class Ui_MainWindow(object):
 
         self.focusModeHLayout.addWidget(self.focusModeButton)
 
-        self.focusStatus_2 = QLabel(self.verticalLayoutWidget)
-        self.focusStatus_2.setObjectName(u"focusStatus_2")
-        self.focusStatus_2.setScaledContents(True)
+        self.focusStatus = QLabel(self.verticalLayoutWidget)
+        self.focusStatus.setObjectName(u"focusStatus")
+        self.focusStatus.setScaledContents(True)
 
-        self.focusModeHLayout.addWidget(self.focusStatus_2)
+        self.focusModeHLayout.addWidget(self.focusStatus)
 
 
         self.verticalLayout.addLayout(self.focusModeHLayout)
@@ -289,6 +291,7 @@ class Ui_MainWindow(object):
         self.menuTools.addAction(self.menuFace_Parsing_Tool.menuAction())
         self.menuTools.addAction(self.menuBlob_Detector.menuAction())
         self.menuBlob_Detector.addAction(self.actionBlob_Detector_With_Face_Parsing)
+        self.menuBlob_Detector.addAction(self.actionSettings)
         self.menuFace_Parsing_Tool.addAction(self.actionParse_Current_Image)
 
         self.retranslateUi(MainWindow)
@@ -306,6 +309,7 @@ class Ui_MainWindow(object):
         self.actionBlob_Detector_With_Face_Parsing.setText(QCoreApplication.translate("MainWindow", u"Blob Detector With Face Parsing", None))
         self.actionParse_Current_Image.setText(QCoreApplication.translate("MainWindow", u"Parse Current Image", None))
         self.actionUpdate_Database.setText(QCoreApplication.translate("MainWindow", u"Update Database", None))
+        self.actionSettings.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.rightGroupBox.setTitle("")
         self.keyBindTitle.setText(QCoreApplication.translate("MainWindow", u"Keybind:", None))
         self.labelNameTitle.setText(QCoreApplication.translate("MainWindow", u"Label Name:", None))
@@ -314,7 +318,7 @@ class Ui_MainWindow(object):
         self.labelListTitle.setText(QCoreApplication.translate("MainWindow", u"Label List:", None))
         self.curImageLabelTitle.setText(QCoreApplication.translate("MainWindow", u"Current Image Labels:", None))
         self.focusModeButton.setText(QCoreApplication.translate("MainWindow", u"Focus Mode", None))
-        self.focusStatus_2.setText(QCoreApplication.translate("MainWindow", u"OFF", None))
+        self.focusStatus.setText(QCoreApplication.translate("MainWindow", u"OFF", None))
         self.prevImageButton.setText(QCoreApplication.translate("MainWindow", u"Prev", None))
         self.nextImageButton.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.imageLabelTabRaw.setText("")

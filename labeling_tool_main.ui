@@ -238,7 +238,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="focusStatus_2">
+         <widget class="QLabel" name="focusStatus">
           <property name="text">
            <string>OFF</string>
           </property>
@@ -295,7 +295,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -486,6 +486,7 @@
       <string>Blob Detector</string>
      </property>
      <addaction name="actionBlob_Detector_With_Face_Parsing"/>
+     <addaction name="actionSettings"/>
     </widget>
     <widget class="QMenu" name="menuFace_Parsing_Tool">
      <property name="title">
@@ -528,6 +529,11 @@
   <action name="actionUpdate_Database">
    <property name="text">
     <string>Update Database</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>

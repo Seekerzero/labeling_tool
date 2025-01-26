@@ -3,6 +3,7 @@ import copy
 import cv2
 import numpy as np
 import json
+from dataclasses import dataclass
 
 
 # hardcoded labels for face parsing model labels
@@ -27,6 +28,33 @@ FACE_PARSING_LABELS = [
     "neck",
     "cloth",
 ]
+
+
+@dataclass
+class BlobSettings:
+    """Blob detector settings."""
+
+    filterByArea: bool = True
+    minArea: int = 100
+    maxArea: int = 10000000
+    minDistBetweenBlobs: int = 10
+
+    filterByCircularity: bool = True
+    minCircularity: float = 0.2
+
+    filterByColor: bool = True
+    blobColor: int = 0
+    minThreshold: int = 50
+    maxThreshold: int = 220
+    thresholdStep: int = 10
+
+    filterByInertia: bool = True
+    minInertiaRatio: float = 0.2
+
+    filterByConvexity: bool = True
+    minConvexity: float = 0.1
+
+    minRepeatability: int = 2
 
 
 class BlobDetector:
@@ -58,6 +86,31 @@ class BlobDetector:
 
     def set_params(self, params):
         self.params = copy.deepcopy(params)
+        self.detector = cv2.SimpleBlobDetector_create(self.params)
+
+    def set_blob_settings(self, blob_settings: BlobSettings):
+        self.params.filterByArea = blob_settings.filterByArea
+        self.params.minArea = blob_settings.minArea
+        self.params.maxArea = blob_settings.maxArea
+        self.params.minDistBetweenBlobs = blob_settings.minDistBetweenBlobs
+
+        self.params.filterByCircularity = blob_settings.filterByCircularity
+        self.params.minCircularity = blob_settings.minCircularity
+
+        self.params.filterByColor = blob_settings.filterByColor
+        self.params.blobColor = blob_settings.blobColor
+        self.params.minThreshold = blob_settings.minThreshold
+        self.params.maxThreshold = blob_settings.maxThreshold
+        self.params.thresholdStep = blob_settings.thresholdStep
+
+        self.params.filterByInertia = blob_settings.filterByInertia
+        self.params.minInertiaRatio = blob_settings.minInertiaRatio
+
+        self.params.filterByConvexity = blob_settings.filterByConvexity
+        self.params.minConvexity = blob_settings.minConvexity
+
+        self.params.minRepeatability = blob_settings.minRepeatability
+
         self.detector = cv2.SimpleBlobDetector_create(self.params)
 
     def detect_blobs(self, image_path, gaussian_blur_kernel_size=3):

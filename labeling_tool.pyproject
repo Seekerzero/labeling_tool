@@ -1,9 +1,9 @@
 {
     "files": [
         "main.py",
-        "labeling_tool.ui",
         "ui_labeling_tool.py",
         "init_db.py",
-        "labeling_tool_main.ui"
+        "labeling_tool_main.ui",
+        "preferences.ui"
     ]
 }
