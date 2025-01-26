@@ -6,25 +6,293 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1026</width>
-    <height>699</height>
+    <width>1139</width>
+    <height>731</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
-   <enum>Qt::DefaultContextMenu</enum>
+   <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>Labeling Tool</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="rightGroupBox">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>0</y>
+      <width>321</width>
+      <height>499</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>321</height>
+     </size>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>281</width>
+       <height>459</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="keybindHLayout">
+        <property name="spacing">
+         <number>20</number>
+        </property>
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>20</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="keyBindTitle">
+          <property name="text">
+           <string>Keybind:</string>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="keyBindEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="labelNameHLayout">
+        <property name="spacing">
+         <number>20</number>
+        </property>
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>20</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="labelNameTitle">
+          <property name="text">
+           <string>Label Name:</string>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="labelNameEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>20</number>
+        </property>
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>20</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="addLabelButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Add Label</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeLabelButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Remove Label</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelListTitle">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Label List:</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="labelList">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LayoutDirection::LeftToRight</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="curImageLabelTitle">
+        <property name="text">
+         <string>Current Image Labels:</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="curImageLabelsList"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="focusModeHLayout">
+        <property name="spacing">
+         <number>20</number>
+        </property>
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>20</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="focusModeButton">
+          <property name="text">
+           <string>Focus Mode</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="focusStatus_2">
+          <property name="text">
+           <string>OFF</string>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="imageSwitchButtonHLayout">
+        <property name="spacing">
+         <number>20</number>
+        </property>
+        <property name="leftMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>20</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="prevImageButton">
+          <property name="text">
+           <string>Prev</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="nextImageButton">
+          <property name="text">
+           <string>Next</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
    <widget class="QTabWidget" name="imageTab">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>40</y>
-      <width>710</width>
-      <height>540</height>
+      <y>70</y>
+      <width>811</width>
+      <height>511</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="currentIndex">
      <number>2</number>
@@ -44,8 +312,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>706</width>
-        <height>509</height>
+        <width>801</width>
+        <height>481</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -104,8 +372,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>706</width>
-        <height>509</height>
+        <width>801</width>
+        <height>481</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -126,335 +394,64 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="rightUpperGroupBox">
-    <property name="geometry">
-     <rect>
-      <x>760</x>
-      <y>0</y>
-      <width>261</width>
-      <height>331</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>0</width>
-      <height>321</height>
-     </size>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::NoContextMenu</enum>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="flat">
+   <widget class="QGroupBox" name="upperGroupBox">
+    <property name="enabled">
      <bool>true</bool>
     </property>
-    <widget class="QListWidget" name="labelList">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>180</y>
-       <width>221</width>
-       <height>121</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="labelListTitle">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>160</y>
-       <width>91</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Label List:</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="addLabelButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>90</y>
-       <width>151</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Label</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="keyBindEdit">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>60</y>
-       <width>121</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="keyBindTitle">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>60</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Keybind:</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="labelNameEdit">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>30</y>
-       <width>121</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="labelNameTitle">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>91</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Label Name:</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="removeLabelButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>120</y>
-       <width>151</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Remove Label</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="upperGroupBox">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
-      <width>710</width>
-      <height>30</height>
+      <y>0</y>
+      <width>811</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QLabel" name="dbStatus">
-     <property name="geometry">
-      <rect>
-       <x>480</x>
-       <y>0</y>
-       <width>221</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>dbStatus</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="imageIDCount">
+    <widget class="QWidget" name="horizontalLayoutWidget_6">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>0</y>
-       <width>341</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>image_id</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="rightBelowGroupBox">
-    <property name="geometry">
-     <rect>
-      <x>760</x>
-      <y>330</y>
-      <width>261</width>
-      <height>255</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <widget class="QLabel" name="curImageLabelTitle">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>171</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Current Image Labels:</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QListWidget" name="curImageLabelsList">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>40</y>
-       <width>221</width>
-       <height>121</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="prevImageButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>214</y>
-       <width>91</width>
+       <y>20</y>
+       <width>781</width>
        <height>31</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Prev</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="nextImageButton">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>214</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Next</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="focusModeButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>170</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Focus Mode</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="focusStatus">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>170</y>
-       <width>81</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>OFF</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="bottomGroupBox">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>590</y>
-      <width>1021</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <widget class="QProgressBar" name="bottomProgressBar">
-     <property name="geometry">
-      <rect>
-       <x>13</x>
-       <y>13</y>
-       <width>95</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="value">
-      <number>24</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="progressBarText">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>13</y>
-       <width>311</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>progressbartext</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
+     <layout class="QHBoxLayout" name="topInfoHLayout">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="rightMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="imageIDCount">
+        <property name="text">
+         <string>image_id</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="dbStatus">
+        <property name="text">
+         <string>dbStatus</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>
@@ -463,8 +460,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1026</width>
-     <height>22</height>
+     <width>1139</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

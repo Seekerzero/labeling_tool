@@ -16,7 +16,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 
 # Import the class from the generated ui_labeling_tool.py
-from ui_labeling_tool import Ui_MainWindow
+from ui_labeling_tool_main import Ui_MainWindow
 from init_db import init_db
 from modules.face_segementation import FaceSegmentation
 from modules.blob_detector import BlobDetector
@@ -526,34 +526,25 @@ class LabelingTool(QMainWindow, Ui_MainWindow):
     def resizeEvent(self, event):
         super().resizeEvent(event)
         # move the right groupbox to the right side of the window
-        self.rightUpperGroupBox.setGeometry(
-            self.width() - self.rightUpperGroupBox.width(),
+        self.rightGroupBox.setGeometry(
+            self.width() - self.rightGroupBox.width(),
             0,
-            self.rightUpperGroupBox.width(),
-            self.rightUpperGroupBox.height(),
+            self.rightGroupBox.width(),
+            self.rightGroupBox.height(),
         )
-        self.rightBelowGroupBox.setGeometry(
-            self.width() - self.rightBelowGroupBox.width(),
-            self.rightUpperGroupBox.height(),
-            self.rightBelowGroupBox.width(),
-            self.rightBelowGroupBox.height(),
-        )
+
         # change the upper groupbox width to match the window width minus the right groupbox width
         self.upperGroupBox.setGeometry(
             0,
             0,
-            self.width() - self.rightUpperGroupBox.width(),
+            self.width() - self.rightGroupBox.width(),
             self.upperGroupBox.height(),
         )
         self.imageTab.setGeometry(
             0,
             self.upperGroupBox.height(),
             self.upperGroupBox.width(),
-            self.height()
-            - self.upperGroupBox.height()
-            - self.bottomGroupBox.height()
-            - self.statusBar().height()
-            - 13,
+            self.height() - self.upperGroupBox.height() - self.statusBar().height(),
         )
 
         self.imageLabelTabRaw.setGeometry(
@@ -564,13 +555,6 @@ class LabelingTool(QMainWindow, Ui_MainWindow):
         )
         self.imageLabelTabBlob.setGeometry(
             0, 0, self.imageTab.width(), self.imageTab.height()
-        )
-
-        self.bottomGroupBox.setGeometry(
-            0,
-            self.upperGroupBox.height() + self.imageTab.height(),
-            self.width(),
-            self.bottomGroupBox.height(),
         )
 
         self.update_image_display()  # re-scale image to the label size
